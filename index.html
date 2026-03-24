@@ -483,7 +483,6 @@
   </div>
 
   <div class="app">
-    <!-- LEFT -->
     <section class="panel">
       <div class="panel-header">
         <div class="panel-title">Shop Items</div>
@@ -495,7 +494,6 @@
       </div>
     </section>
 
-    <!-- MIDDLE -->
     <section class="panel">
       <div class="panel-header">
         <div class="panel-title">Current Order</div>
@@ -533,7 +531,6 @@
       </div>
     </section>
 
-    <!-- RIGHT -->
     <section class="panel">
       <div class="panel-header">
         <div class="panel-title">Customer + Checkout</div>
@@ -564,17 +561,16 @@
 
         <div class="controls">
           <button class="btn btn-primary" id="discountBtn">10% Mech Discount</button>
-          <button class="btn btn-secondary" id="copyOrderBtn">Copy Order</button>
+          <button class="btn btn-secondary" id="copyFullReportBtn">Copy Full Report</button>
         </div>
 
         <div class="controls">
           <button class="btn btn-primary" id="copyReceiptBtn">Copy Receipt</button>
-          <button class="btn btn-secondary" id="copyMaterialsBtn">Copy Materials</button>
         </div>
 
         <div class="muted-note">
           Discount adds <strong>[Mech]</strong> to the customer name on the receipt.
-          Extras Kit stays at <strong>$0</strong> and notes manual activation on the order copy.
+          Extras Kit stays at <strong>$0</strong> and notes manual activation on the full report.
         </div>
 
         <div class="panel-title" style="font-size:12px;">Receipt Preview</div>
@@ -595,331 +591,50 @@
     ];
 
     const items = [
-      {
-        key: "tire-replacement-kit",
-        name: "Tire Replacement Kit",
-        receiptName: "Tire Replacement Kit",
-        category: "Maintenance",
-        charge: 500,
-        cost: 400,
-        materials: { Plastic: 10, Rubber: 30 }
-      },
-      {
-        key: "synthetic-oil",
-        name: "Synthetic Oil",
-        receiptName: "Synthetic Oil",
-        category: "Maintenance",
-        charge: 50,
-        cost: 30,
-        materials: { "Engine Oil": 3, Chemicals: 1 }
-      },
-      {
-        key: "air-filter",
-        name: "Air Filter",
-        receiptName: "Air Filter",
-        category: "Maintenance",
-        charge: 50,
-        cost: 64,
-        materials: { Plastic: 5, Rags: 4 }
-      },
-      {
-        key: "cleaning-kit",
-        name: "Cleaning Kit",
-        receiptName: "Cleaning Kit",
-        category: "Maintenance",
-        charge: 50,
-        cost: 35,
-        materials: { Rags: 5, Chemicals: 2 }
-      },
+      { key: "tire-replacement-kit", name: "Tire Replacement Kit", receiptName: "Tire Replacement Kit", category: "Maintenance", charge: 1000, cost: 400, materials: { Plastic: 10, Rubber: 30 } },
+      { key: "synthetic-oil", name: "Synthetic Oil", receiptName: "Synthetic Oil", category: "Maintenance", charge: 150, cost: 30, materials: { "Engine Oil": 3, Chemicals: 1 } },
+      { key: "air-filter", name: "Air Filter", receiptName: "Air Filter", category: "Maintenance", charge: 100, cost: 64, materials: { Plastic: 5, Rags: 4 } },
+      { key: "cleaning-kit", name: "Cleaning Kit", receiptName: "Cleaning Kit", category: "Maintenance", charge: 100, cost: 35, materials: { Rags: 5, Chemicals: 2 } },
+      { key: "spark-plug", name: "Spark Plug", receiptName: "Spark Plug", category: "Maintenance", charge: 100, cost: 100, materials: { Rubber: 3, Alu: 10 } },
 
-      {
-        key: "suspension-kit",
-        name: "Suspension Kit",
-        receiptName: "Suspension Kit",
-        category: "Repairs",
-        charge: 100,
-        cost: 115,
-        materials: { Steel: 7, "Metal Scrap": 10 }
-      },
-      {
-        key: "clutch-replacement",
-        name: "Clutch Replacement",
-        receiptName: "Clutch Replacement",
-        category: "Repairs",
-        charge: 50,
-        cost: 80,
-        materials: { Iron: 4, Copper: 4, Rubber: 4 }
-      },
-      {
-        key: "brakepad-replacement",
-        name: "Brakepad Replacement",
-        receiptName: "Brakepad Replacement",
-        category: "Repairs",
-        charge: 300,
-        cost: 360,
-        materials: { Steel: 10, Alu: 12, "Metal Scrap": 5 }
-      },
-      {
-        key: "repair-kit",
-        name: "Repair Kit",
-        receiptName: "Repair Kit",
-        category: "Repairs",
-        charge: 1000,
-        cost: 1000,
-        materials: { Steel: 7, "Metal Scrap": 40, Alu: 5, Toolkit: 3 }
-      },
-      {
-        key: "advanced-repair-kit",
-        name: "Advanced Repair Kit",
-        receiptName: "Advanced Repair Kit",
-        category: "Repairs",
-        charge: 1500,
-        cost: 1500,
-        materials: { Steel: 35, "Metal Scrap": 150, Alu: 25, Toolkit: 15 }
-      },
-      {
-        key: "ceramic-brakes",
-        name: "Ceramic Brakes",
-        receiptName: "Ceramic Brakes",
-        category: "Repairs",
-        charge: 1100,
-        cost: 1075,
-        materials: { Steel: 45, Iron: 45, Alu: 25, "Scrap Metal": 50 }
-      },
+      { key: "suspension-kit", name: "Suspension Kit", receiptName: "Suspension Kit", category: "Repairs", charge: 100, cost: 115, materials: { Steel: 7, "Metal Scrap": 10 } },
+      { key: "clutch-replacement", name: "Clutch Replacement", receiptName: "Clutch Replacement", category: "Repairs", charge: 150, cost: 80, materials: { Iron: 4, Copper: 4, Rubber: 4 } },
+      { key: "brakepad-replacement", name: "Brakepad Replacement", receiptName: "Brakepad Replacement", category: "Repairs", charge: 300, cost: 360, materials: { Steel: 10, Alu: 12, "Metal Scrap": 5 } },
+      { key: "repair-kit", name: "Repair Kit", receiptName: "Repair Kit", category: "Repairs", charge: 1000, cost: 1000, materials: { Steel: 7, "Metal Scrap": 40, Alu: 5, Toolkit: 3 } },
+      { key: "advanced-repair-kit", name: "Advanced Repair Kit", receiptName: "Advanced Repair Kit", category: "Repairs", charge: 2000, cost: 1500, materials: { Steel: 35, "Metal Scrap": 150, Alu: 25, Toolkit: 15 } },
+      { key: "ceramic-brakes", name: "Ceramic Brakes", receiptName: "Ceramic Brakes", category: "Repairs", charge: 2000, cost: 1075, materials: { Steel: 45, Iron: 45, Alu: 25, "Scrap Metal": 50 } },
 
-      {
-        key: "slick-tires",
-        name: "Slick Tires",
-        receiptName: "Slick Tires",
-        category: "Tires & Wheels",
-        charge: 3200,
-        cost: 3000,
-        materials: { Rubber: 150, Plastic: 150 }
-      },
-      {
-        key: "semi-slick-tires",
-        name: "Semi Slick Tires",
-        receiptName: "Semi Slick Tires",
-        category: "Tires & Wheels",
-        charge: 1700,
-        cost: 1500,
-        materials: { Rubber: 75, Plastic: 75 }
-      },
-      {
-        key: "offroad-tires",
-        name: "Offroad Tires",
-        receiptName: "Offroad Tires",
-        category: "Tires & Wheels",
-        charge: 2200,
-        cost: 2000,
-        materials: { Rubber: 100, Plastic: 100 }
-      },
-      {
-        key: "vehicle-wheels",
-        name: "Vehicle Wheels",
-        receiptName: "Wheels",
-        category: "Tires & Wheels",
-        charge: 1000,
-        cost: 1125,
-        materials: { Rubber: 45 }
-      },
-      {
-        key: "tire-smoke-kit",
-        name: "Tire Smoke Kit",
-        receiptName: "Tire Smoke Kit",
-        category: "Tires & Wheels",
-        charge: 500,
-        cost: 625,
-        materials: { Rubber: 25 }
-      },
+      { key: "slick-tires", name: "Slick Tires", receiptName: "Slick Tires", category: "Tires & Wheels", charge: 3200, cost: 3000, materials: { Rubber: 150, Plastic: 150 } },
+      { key: "semi-slick-tires", name: "Semi Slick Tires", receiptName: "Semi Slick Tires", category: "Tires & Wheels", charge: 3200, cost: 1500, materials: { Rubber: 75, Plastic: 75 } },
+      { key: "offroad-tires", name: "Offroad Tires", receiptName: "Offroad Tires", category: "Tires & Wheels", charge: 3200, cost: 2000, materials: { Rubber: 100, Plastic: 100 } },
+      { key: "vehicle-wheels", name: "Vehicle Wheels", receiptName: "Wheels", category: "Tires & Wheels", charge: 1200, cost: 1125, materials: { Rubber: 45 } },
+      { key: "open-wheels", name: "Open Wheels", receiptName: "Open Wheels", category: "Tires & Wheels", charge: 1500, cost: 0, materials: {} },
+      { key: "tire-smoke-kit", name: "Tire Smoke Kit", receiptName: "Tire Smoke Kit", category: "Tires & Wheels", charge: 650, cost: 625, materials: { Rubber: 25 } },
 
-      {
-        key: "drift-tuning-kit",
-        name: "Drift Tuning Kit",
-        receiptName: "Drift Tuning Kit",
-        category: "Drivetrain & Tuning",
-        charge: 500,
-        cost: 450,
-        materials: { Steel: 20, "Circuit Board": 1, "Copper Wire": 10 }
-      },
-      {
-        key: "awd-drivetrain",
-        name: "AWD Drivetrain",
-        receiptName: "AWD Drivetrain",
-        category: "Drivetrain & Tuning",
-        charge: 1500,
-        cost: 1400,
-        materials: { "Carbon Steel": 50, Alu: 30, "Metal Scrap": 250 }
-      },
-      {
-        key: "rwd-drivetrain",
-        name: "RWD Drivetrain",
-        receiptName: "RWD Drivetrain",
-        category: "Drivetrain & Tuning",
-        charge: 300,
-        cost: 305,
-        materials: { Iron: 30, Alu: 15, "Metal Scrap": 80 }
-      },
-      {
-        key: "fwd-drivetrain",
-        name: "FWD Drivetrain",
-        receiptName: "FWD Drivetrain",
-        category: "Drivetrain & Tuning",
-        charge: 300,
-        cost: 305,
-        materials: { Iron: 30, Alu: 15, "Metal Scrap": 80 }
-      },
-      {
-        key: "performance-parts",
-        name: "Performance Parts",
-        receiptName: "Performance Parts",
-        category: "Drivetrain & Tuning",
-        charge: 1000,
-        cost: 275,
-        materials: { Steel: 15, Alu: 10 }
-      },
-      {
-        key: "stance-kit",
-        name: "Stance Kit",
-        receiptName: "Stance Kit",
-        category: "Drivetrain & Tuning",
-        charge: 500,
-        cost: 450,
-        materials: { Copper: 15, Alu: 15 }
-      },
+      { key: "drift-tuning-kit", name: "Drift Tuning Kit", receiptName: "Drift Tuning Kit", category: "Drivetrain & Tuning", charge: 1500, cost: 450, materials: { Steel: 20, "Circuit Board": 1, "Copper Wire": 10 } },
+      { key: "awd-drivetrain", name: "AWD Drivetrain", receiptName: "AWD Drivetrain", category: "Drivetrain & Tuning", charge: 2000, cost: 1400, materials: { "Carbon Steel": 50, Alu: 30, "Metal Scrap": 250 } },
+      { key: "rwd-drivetrain", name: "RWD Drivetrain", receiptName: "RWD Drivetrain", category: "Drivetrain & Tuning", charge: 1300, cost: 305, materials: { Iron: 30, Alu: 15, "Metal Scrap": 80 } },
+      { key: "fwd-drivetrain", name: "FWD Drivetrain", receiptName: "FWD Drivetrain", category: "Drivetrain & Tuning", charge: 1300, cost: 305, materials: { Iron: 30, Alu: 15, "Metal Scrap": 80 } },
+      { key: "performance-parts", name: "Performance Parts", receiptName: "Performance Parts", category: "Drivetrain & Tuning", charge: 1000, cost: 275, materials: { Steel: 15, Alu: 10 } },
+      { key: "stance-kit", name: "Stance Kit", receiptName: "Stance Kit", category: "Drivetrain & Tuning", charge: 600, cost: 450, materials: { Copper: 15, Alu: 15 } },
 
-      {
-        key: "lighting-controller",
-        name: "Lighting Controller",
-        receiptName: "Lighting Controller",
-        category: "Cosmetic & Electrical",
-        charge: 100,
-        cost: 120,
-        materials: { "Circuit Board": 1, Plastic: 10 }
-      },
-      {
-        key: "cosmetics",
-        name: "Cosmetics",
-        receiptName: "Cosmetics",
-        category: "Cosmetic & Electrical",
-        charge: 100,
-        cost: 100,
-        materials: { Copper: 10, Alu: 10 }
-      },
-      {
-        key: "respray-kit",
-        name: "Respray Kit",
-        receiptName: "Respray",
-        category: "Cosmetic & Electrical",
-        charge: 300,
-        cost: 275,
-        materials: { Copper: 5, Alu: 5, Chemicals: 15 }
-      },
-      {
-        key: "extras-kit",
-        name: "Extras Kit",
-        receiptName: "Extras Kit",
-        category: "Cosmetic & Electrical",
-        charge: 0,
-        cost: 450,
-        materials: { Copper: 15, Alu: 15 },
-        note: "Manual activation required"
-      },
+      { key: "lighting-controller", name: "Lighting Controller", receiptName: "Lighting Controller", category: "Cosmetic & Electrical", charge: 150, cost: 120, materials: { "Circuit Board": 1, Plastic: 10 } },
+      { key: "cosmetics", name: "Cosmetics", receiptName: "Cosmetics", category: "Cosmetic & Electrical", charge: 150, cost: 100, materials: { Copper: 10, Alu: 10 } },
+      { key: "respray-kit", name: "Respray Kit", receiptName: "Respray", category: "Cosmetic & Electrical", charge: 400, cost: 275, materials: { Copper: 5, Alu: 5, Chemicals: 15 } },
+      { key: "extras-kit", name: "Extras Kit", receiptName: "Extras Kit", category: "Cosmetic & Electrical", charge: 0, cost: 450, materials: { Copper: 15, Alu: 15 }, note: "Manual activation required" },
 
-      {
-        key: "v4-engine",
-        name: "V4 Engine",
-        receiptName: "V4 Engine",
-        category: "Engines",
-        charge: 2000,
-        cost: 1725,
-        materials: { "Carbon Steel": 45, Alu: 45, "Engine Oil": 10, "Spark Plug": 4, "Metal Scrap": 350 }
-      },
-      {
-        key: "v6-engine",
-        name: "V6 Engine",
-        receiptName: "V6 Engine",
-        category: "Engines",
-        charge: 3000,
-        cost: 2025,
-        materials: { "Carbon Steel": 55, Alu: 45, "Engine Oil": 10, "Spark Plug": 6, "Metal Scrap": 350 }
-      },
-      {
-        key: "v8-engine",
-        name: "V8 Engine",
-        receiptName: "V8 Engine",
-        category: "Engines",
-        charge: 5000,
-        cost: 2275,
-        materials: { "Carbon Steel": 65, Alu: 35, "Engine Oil": 10, "Spark Plug": 8, "Metal Scrap": 350 }
-      },
-      {
-        key: "v12-engine",
-        name: "V12 Engine",
-        receiptName: "V12 Engine",
-        category: "Engines",
-        charge: 6000,
-        cost: 2725,
-        materials: { "Carbon Steel": 75, Alu: 45, "Engine Oil": 10, "Spark Plug": 12, "Metal Scrap": 350 }
-      },
+      { key: "v4-engine", name: "V4 Engine", receiptName: "V4 Engine", category: "Engines", charge: 2500, cost: 1725, materials: { "Carbon Steel": 45, Alu: 45, "Engine Oil": 10, "Spark Plug": 4, "Metal Scrap": 350 } },
+      { key: "v6-engine", name: "V6 Engine", receiptName: "V6 Engine", category: "Engines", charge: 5000, cost: 2025, materials: { "Carbon Steel": 55, Alu: 45, "Engine Oil": 10, "Spark Plug": 6, "Metal Scrap": 350 } },
+      { key: "v8-engine", name: "V8 Engine", receiptName: "V8 Engine", category: "Engines", charge: 10000, cost: 2275, materials: { "Carbon Steel": 65, Alu: 35, "Engine Oil": 10, "Spark Plug": 8, "Metal Scrap": 350 } },
+      { key: "v12-engine", name: "V12 Engine", receiptName: "V12 Engine", category: "Engines", charge: 20000, cost: 2725, materials: { "Carbon Steel": 75, Alu: 45, "Engine Oil": 10, "Spark Plug": 12, "Metal Scrap": 350 } },
 
-      {
-        key: "max-armor-5",
-        name: "Max Armor 5",
-        receiptName: "Max Armor 5",
-        category: "Special",
-        charge: 10000,
-        cost: 10000,
-        materials: {}
-      },
-      {
-        key: "max-armor-4",
-        name: "Max Armor 4",
-        receiptName: "Max Armor 4",
-        category: "Special",
-        charge: 9000,
-        cost: 9000,
-        materials: {}
-      },
-      {
-        key: "max-armor-3",
-        name: "Max Armor 3",
-        receiptName: "Max Armor 3",
-        category: "Special",
-        charge: 8000,
-        cost: 8000,
-        materials: {}
-      },
-      {
-        key: "max-armor-2",
-        name: "Max Armor 2",
-        receiptName: "Max Armor 2",
-        category: "Special",
-        charge: 7000,
-        cost: 7000,
-        materials: {}
-      },
-      {
-        key: "max-armor-1",
-        name: "Max Armor 1",
-        receiptName: "Max Armor 1",
-        category: "Special",
-        charge: 6000,
-        cost: 6000,
-        materials: {}
-      },
-      {
-        key: "vehicle-weapons",
-        name: "Vehicle Weapons",
-        receiptName: "Vehicle Weapons",
-        category: "Special",
-        charge: 50000,
-        cost: 0,
-        materials: {}
-      }
+      { key: "max-armor-5", name: "Max Armor 5", receiptName: "Max Armor 5", category: "Special", charge: 10000, cost: 10000, materials: {} },
+      { key: "max-armor-4", name: "Max Armor 4", receiptName: "Max Armor 4", category: "Special", charge: 9000, cost: 9000, materials: {} },
+      { key: "max-armor-3", name: "Max Armor 3", receiptName: "Max Armor 3", category: "Special", charge: 8000, cost: 8000, materials: {} },
+      { key: "max-armor-2", name: "Max Armor 2", receiptName: "Max Armor 2", category: "Special", charge: 7000, cost: 7000, materials: {} },
+      { key: "max-armor-1", name: "Max Armor 1", receiptName: "Max Armor 1", category: "Special", charge: 6000, cost: 6000, materials: {} },
+      { key: "vehicle-weapons", name: "Vehicle Weapons", receiptName: "Vehicle Weapons", category: "Special", charge: 50000, cost: 0, materials: {} }
     ];
-
-    const itemMap = Object.fromEntries(items.map(item => [item.key, item]));
 
     let activeCategory = categories[0];
     let order = {};
@@ -1075,6 +790,10 @@
       discountBtn.textContent = mechDiscount ? "10% Mech Discount Applied" : "10% Mech Discount";
     }
 
+    function wrapForDiscord(text){
+      return "```" + "\n" + text + "\n" + "```";
+    }
+
     function buildReceiptText(){
       const rawName = customerNameEl.value.trim() || "";
       const name = mechDiscount
@@ -1086,12 +805,14 @@
       const upgrades = getReceiptItems().join(", ");
       const final = money(getFinalTotal());
 
-      return `Customer Name: ${name}
+      const text = `Customer Name: ${name}
 Vehicle | [Make/Model]: ${vehicle}
 Plate: ${plate}
 Upgrades Purchased: ${upgrades}
 Price Charged: ${final}
 SHOP: Hayes Auto Body Shop`;
+
+      return wrapForDiscord(text);
     }
 
     function buildOrderText(){
@@ -1105,7 +826,7 @@ SHOP: Hayes Auto Body Shop`;
         .map(([name, qty]) => `${name} x${qty}`)
         .join("\n");
 
-      return `Hayes Auto Body Shop Order
+      const text = `Hayes Auto Body Shop Order
 
 Customer: ${name}
 Vehicle: ${vehicle}
@@ -1124,13 +845,8 @@ Profit: ${money(getProfit())}${notes ? `
 
 Notes:
 ${notes}` : ""}`;
-    }
 
-    function buildMaterialsText(){
-      return Object.entries(getMaterials())
-        .sort((a,b) => a[0].localeCompare(b[0]))
-        .map(([name, qty]) => `${name} x${qty}`)
-        .join("\n");
+      return wrapForDiscord(text);
     }
 
     function renderReceiptPreview(){
@@ -1164,6 +880,10 @@ ${notes}` : ""}`;
       order = {};
       historyStack = [];
       mechDiscount = false;
+      customerNameEl.value = "";
+      vehicleModelEl.value = "";
+      plateEl.value = "";
+      notesEl.value = "";
       renderAll();
     }
 
@@ -1173,15 +893,12 @@ ${notes}` : ""}`;
       renderItems();
     }
 
-    async function copyText(text, button){
-      const original = button.textContent;
+    async function copyText(text, button, label){
       try{
         await navigator.clipboard.writeText(text);
-        button.textContent = "Copied";
-        setTimeout(() => button.textContent = original, 900);
+        button.textContent = label;
       }catch{
-        button.textContent = "Copy Failed";
-        setTimeout(() => button.textContent = original, 1100);
+        button.textContent = label;
       }
     }
 
@@ -1197,15 +914,11 @@ ${notes}` : ""}`;
     });
 
     document.getElementById("copyReceiptBtn").addEventListener("click", function(){
-      copyText(buildReceiptText(), this);
+      copyText(buildReceiptText(), this, "Copy Receipt");
     });
 
-    document.getElementById("copyOrderBtn").addEventListener("click", function(){
-      copyText(buildOrderText(), this);
-    });
-
-    document.getElementById("copyMaterialsBtn").addEventListener("click", function(){
-      copyText(buildMaterialsText(), this);
+    document.getElementById("copyFullReportBtn").addEventListener("click", function(){
+      copyText(buildOrderText(), this, "Copy Full Report");
     });
 
     [customerNameEl, vehicleModelEl, plateEl, notesEl].forEach(el => {
