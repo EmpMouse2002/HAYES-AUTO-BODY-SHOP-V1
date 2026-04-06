@@ -24,6 +24,7 @@
     }
 
     *{box-sizing:border-box}
+
     html,body{
       margin:0;
       height:100%;
@@ -48,7 +49,7 @@
       padding:14px 22px;
       border-bottom:1px solid rgba(255,255,255,.06);
       background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
-      backdrop-filter: blur(6px);
+      backdrop-filter:blur(6px);
       flex-shrink:0;
     }
 
@@ -89,7 +90,7 @@
     .app{
       height:calc(100vh - 74px);
       display:grid;
-      grid-template-columns: 42% 28% 30%;
+      grid-template-columns:42% 28% 30%;
       gap:14px;
       padding:14px;
     }
@@ -258,7 +259,7 @@
 
     .order-row{
       display:grid;
-      grid-template-columns: 1fr auto auto;
+      grid-template-columns:1fr auto auto auto;
       gap:8px;
       align-items:center;
       background:rgba(255,255,255,.03);
@@ -291,6 +292,46 @@
     .order-line{
       font-weight:900;
       font-size:14px;
+    }
+
+    .order-actions{
+      display:flex;
+      gap:6px;
+      align-items:center;
+    }
+
+    .icon-btn{
+      width:30px;
+      height:30px;
+      border:none;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:900;
+      font-size:14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      transition:.18s ease;
+    }
+
+    .minus-btn{
+      background:#203250;
+      color:#ffd54a;
+      border:1px solid #35527d;
+    }
+
+    .minus-btn:hover{
+      background:#284167;
+    }
+
+    .delete-btn{
+      background:#2b161b;
+      color:#ff8d8d;
+      border:1px solid rgba(255,107,107,.25);
+    }
+
+    .delete-btn:hover{
+      background:#3a1c23;
     }
 
     .materials-box{
@@ -466,8 +507,8 @@
       min-height:120px;
     }
 
-    @media (max-width: 1400px){
-      .app{ grid-template-columns: 40% 29% 31%; }
+    @media (max-width:1400px){
+      .app{ grid-template-columns:40% 29% 31%; }
       .items-grid{ grid-template-columns:1fr 1fr; }
       .tabs{ grid-template-columns:repeat(4,1fr); }
     }
@@ -752,6 +793,10 @@
                 <div class="order-sub">${money(item.charge)} each${item.note ? ` • ${item.note}` : ""}</div>
               </div>
               <div class="order-qty">${qty}x</div>
+              <div class="order-actions">
+                <button class="icon-btn minus-btn" onclick="removeOneItem('${item.key}')" title="Remove one">−</button>
+                <button class="icon-btn delete-btn" onclick="removeAllOfItem('${item.key}')" title="Remove all">🗑</button>
+              </div>
               <div class="order-line">${money(line)}</div>
             </div>
           `;
@@ -868,6 +913,30 @@ ${notes}` : ""}`;
       renderAll();
     }
 
+    function removeOneItem(key){
+      if (!order[key]) return;
+      order[key] -= 1;
+      if (order[key] <= 0){
+        delete order[key];
+      }
+
+      for (let i = historyStack.length - 1; i >= 0; i--) {
+        if (historyStack[i] === key) {
+          historyStack.splice(i, 1);
+          break;
+        }
+      }
+
+      renderAll();
+    }
+
+    function removeAllOfItem(key){
+      if (!order[key]) return;
+      delete order[key];
+      historyStack = historyStack.filter(itemKey => itemKey !== key);
+      renderAll();
+    }
+
     function undoLastItem(){
       const last = historyStack.pop();
       if (!last) return;
@@ -904,6 +973,8 @@ ${notes}` : ""}`;
 
     window.setCategory = setCategory;
     window.addItem = addItem;
+    window.removeOneItem = removeOneItem;
+    window.removeAllOfItem = removeAllOfItem;
 
     document.getElementById("undoBtn").addEventListener("click", undoLastItem);
     document.getElementById("clearBtn").addEventListener("click", clearAll);
